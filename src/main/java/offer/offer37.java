@@ -74,12 +74,12 @@ public class offer37 {
                 node.left = new TreeNode(Integer.parseInt(split[i]));
                 queue.offer(node.left);
             }
-            i++;
+            i++;  // 关键
             if (!"null".equals(split[i])) {
                 node.right = new TreeNode(Integer.parseInt(split[i]));
                 queue.offer(node.right);
             }
-            i++;
+            i++;  // 关键
         }
         return root;
     }

@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Random;
+
 /**
  * @description:
  * @author: jwen
@@ -16,28 +18,32 @@ public class QuickSort {
         }
     }
 
-    public static void quickSort(int l ,int r) {
+    public static void quickSort(int l, int r) {
         if (l >= r) {
             return;
         }
-        int pre = nums[l];
-        int i = l;
-        int j = r;
-        while (i < j) {
-            while (nums[j] >= pre && i < j) {
-                j--;
-            }
-            while (nums[i] <= pre && i < j) {
-                i++;
-            }
-            int temp = nums[j];
-            nums[j] = nums[i];
-            nums[i] = temp;
+        int idx = partition(l, r);
+        quickSort(l, idx - 1);
+        quickSort(idx + 1, r);
+    }
+
+    public static int partition(int l, int r) {
+        int idx = new Random().nextInt(r - l) + 1 + l;
+        int pivot = nums[idx];
+        int pre = l;
+        swap(l, idx);
+        while (l < r) {
+            while (l < r && nums[r] >= pivot) r--;
+            while (l < r && nums[l] <= pivot) l++;
+            swap(l, r);
         }
-        nums[l] = nums[i];
-        nums[i] = pre;
-        quickSort(l, i - 1);
-        quickSort(i + 1, r);
-//        Arrays.sort();
+        swap(pre, l);
+        return l;
+    }
+
+    public static void swap(int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
